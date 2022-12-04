@@ -66,15 +66,25 @@ const SearchBooks = () => {
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
+    console.log(`TOKEN: ${token}, BOOKTOSAVE: ${bookToSave.bookId}`);
 
     if (!token) {
+      console.log('No token found');  
       return false;
     }
 
     try {
         // const response = 
         await saveBook({
-            variables: { input: bookToSave } 
+            // variables: { input: bookToSave }
+            variables: {
+                bookId: bookToSave.bookId,
+                authors: bookToSave.authors,
+                title: bookToSave.title,
+                description: bookToSave.description,
+                image: bookToSave.image,
+                link: bookToSave.link || ''
+            } 
         });
 
         // if(!response.ok) {
@@ -83,6 +93,7 @@ const SearchBooks = () => {
 
          // if book successfully saves to user's account, save book id to state
         setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+        console.log(`SAVEDBOOKIDS: ${savedBookIds}`)
     } catch (err) {
         console.error(err);
     }

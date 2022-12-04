@@ -2,20 +2,25 @@
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
+const { isCompositeType } = require('graphql');
 
+// Create the functions that fulfill the queries defined in `typeDefs.js`
 const resolvers = {
   Query: {
+    // context parameter should ALWAYS be the third parameter
     me: async (parent, args, context) => {
-      if (context.user) {
-        // const user = await User.findOne({_id: context.use._id})
-        
-        // // await User.findOne({ _id: context.user._id }).select('-__v -password').populate('savedBooks');
+        // Get and return all documents from the me collection
+        console.log(context + 'QUERY_ME');
+        if (context.user) {
+            // const user = await User.findOne({_id: context.user._id}).populate('savedBooks');
+            
+            // await User.findOne({ _id: context.user._id }).select('-__v -password').populate('savedBooks');
 
-        // return user;
-        return User.findOne({ _id: context.user._id }).populate('savedBooks');
-      }
+            // return user;
+            return User.findOne({ _id: context.user._id }).populate('savedBooks');
+        }
 
-      throw new AuthenticationError('Not logged in');
+        throw new AuthenticationError('Not logged in');
     },
   },
   Mutation: {
@@ -41,34 +46,26 @@ const resolvers = {
   
         return { token, user };
     },
-    saveBook: async (parent, { input }, context) => {
-    //   console.log(context);
+    saveBook: async (parent, { bookId, authors, description, title, image, link }, context) => {
+        console.dir(context);
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { savedBooks: input } },
+            { $addToSet: { savedBooks:  { bookId, authors, description, title, image, link } } },
             { new: true }
-        )
-
+        );
+        console.log(`UPDATEDUSER: ${updatedUser}`)    
         return updatedUser;
-        // return User.findOneAndUpdate(
-        //     {_id: context.user._id }, 
-        //     { $addToSet: { savedBooks: input } },
-        //     {
-        //         new: true,
-        //         runValidators: true
-        //     }
-        // );
       }
 
       throw new AuthenticationError('Not logged in');
     },
     removeBook: async (parent, { bookId }, context) => {
-        // console.log(context);
+        // console.log(`CONTEXT: ${context}`);
         if (context.user) {
             const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $pull: { savedBooks: { bookId } } },
+                { $pull: { savedBooks: { bookId: bookId } } },
                 { new: true }
             );
   

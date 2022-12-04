@@ -20,8 +20,6 @@ const server = new ApolloServer({
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve up static assets
-// app.use('/images', express.static(path.join(__dirname, '../client/images'))); - Clarify if this is needed
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -46,6 +44,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
     })
   })
 };
-  
+
 // Call the async function to start the server
 startApolloServer(typeDefs, resolvers);

@@ -10,7 +10,6 @@ const resolvers = {
     // context parameter should ALWAYS be the third parameter
     me: async (parent, args, context) => {
         // Get and return all documents from the me collection
-        console.log(context + 'QUERY_ME');
         if (context.user) {
             // const user = await User.findOne({_id: context.user._id}).populate('savedBooks');
             
@@ -53,15 +52,13 @@ const resolvers = {
             { _id: context.user._id },
             { $addToSet: { savedBooks:  { bookId, authors, description, title, image, link } } },
             { new: true }
-        );
-        console.log(`UPDATEDUSER: ${updatedUser}`)    
+        );  
         return updatedUser;
       }
 
       throw new AuthenticationError('Not logged in');
     },
     removeBook: async (parent, { bookId }, context) => {
-        // console.log(`CONTEXT: ${context}`);
         if (context.user) {
             const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },

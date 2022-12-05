@@ -66,7 +66,6 @@ const SearchBooks = () => {
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-    console.log(`TOKEN: ${token}, BOOKTOSAVE: ${bookToSave.bookId}`);
 
     if (!token) {
       console.log('No token found');  
@@ -93,7 +92,6 @@ const SearchBooks = () => {
 
          // if book successfully saves to user's account, save book id to state
         setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-        console.log(`SAVEDBOOKIDS: ${savedBookIds}`)
     } catch (err) {
         console.error(err);
     }

@@ -1,4 +1,3 @@
-// Referencing code from Module 21
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
@@ -34,11 +33,7 @@ const SignupForm = () => {
 
     try {
       const { data } = await addUser({ variables: { ...userFormData } });
-
-    //   if (!data) {
-    //     throw new Error('something went wrong!');
-    //   }
-
+      
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);

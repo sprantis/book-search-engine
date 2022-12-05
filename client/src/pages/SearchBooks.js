@@ -1,4 +1,3 @@
-// Referencing code from Module 21
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
@@ -43,7 +42,7 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      // Reference this url for how to grab selfLink: https://developers.google.com/books/docs/v1/using 
+      // Reference this url for how to grab selfLink: https://developers.google.com/books/docs/v1/using
       const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ['No author to display'],
@@ -64,36 +63,13 @@ const SearchBooks = () => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      console.log('No token found');  
-      return false;
-    }
-
     try {
-        // const response = 
-        await saveBook({
-            // variables: { input: bookToSave }
-            variables: {
-                bookId: bookToSave.bookId,
-                authors: bookToSave.authors,
-                title: bookToSave.title,
-                description: bookToSave.description,
-                image: bookToSave.image,
-                link: bookToSave.link || ''
-            } 
-        });
+      await saveBook({ variables: { input: bookToSave } });
 
-        // if(!response.ok) {
-        //     throw new Error('soemthing went wrong!')
-        // }
-
-         // if book successfully saves to user's account, save book id to state
-        setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      // if book successfully saves to user's account, save book id to state
+      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
-        console.error(err);
+      console.error(err);
     }
   };
 

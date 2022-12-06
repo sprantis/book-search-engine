@@ -13,7 +13,7 @@
 * [Questions](#questions)
 
 ## Description
-I refactored a Google Books API search engine to include and implement GraphQL API and an Apollo Server. Users can search for books and save their favoriate selections. This is a single-page app using the MERN (MongoDB, Express, React, Node) stack.
+I refactored a Google Books API search engine to include and implement a GraphQL API built with Apollo Server. Users can search for books and save their favorite selections. This is a single-page app using the MERN (MongoDB, Express, React, Node) stack.
 
 ## Installation Instructions
 N/A

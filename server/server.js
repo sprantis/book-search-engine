@@ -1,9 +1,11 @@
+// Referencing code from Module 21
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
-
+// Import the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
 const { authMiddleware } = require('./utils/auth');
+// Import the two parts of a GraphQL schema
 const { typeDefs, resolvers } = require('./schemas');
 // Create Express instance
 const app = express();

@@ -1,6 +1,8 @@
+// Referencing code from Module 21
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  # Input reference: https://graphql.org/graphql-js/mutations-and-input-types/
   input BookInput {
     bookId: ID!
     authors: [String]
@@ -10,6 +12,7 @@ const typeDefs = gql`
     link: String
   }
 
+  # Define which fields are accessible from the User model
   type User {
     id: ID
     username: String
@@ -18,6 +21,7 @@ const typeDefs = gql`
     savedBooks: [Book]
   }
 
+  # Define which fields are accessible from the Book model
   type Book {
     bookId: ID!
     authors: [String]
@@ -32,6 +36,7 @@ const typeDefs = gql`
     user: User
   }
 
+  # Define which queries the front end is allowed to make and what data is returned
   type Query {
     me: User
   }

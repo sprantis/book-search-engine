@@ -1,3 +1,4 @@
+// Referencing code from Module 21
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`

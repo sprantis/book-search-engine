@@ -1,3 +1,4 @@
+// Referencing code from Module 21
 const jwt = require('jsonwebtoken');
 
 // set token secret and expiration date

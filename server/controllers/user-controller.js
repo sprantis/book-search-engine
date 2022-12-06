@@ -1,3 +1,4 @@
+// Referencing code from Module 21
 // import user model
 const { User } = require('../models');
 // import sign token function from auth

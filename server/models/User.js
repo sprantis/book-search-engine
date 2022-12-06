@@ -1,3 +1,4 @@
+// Referencing code from Module 21
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -32,7 +33,7 @@ const userSchema = new Schema(
   }
 );
 
-// hash user password
+// set up pre-save middleware to create password and hash user password
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -47,7 +48,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
+// compare the incoming password with the hashed password when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
 userSchema.virtual('bookCount').get(function () {
   return this.savedBooks.length;
 });

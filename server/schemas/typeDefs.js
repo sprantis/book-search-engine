@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   # Define which fields are accessible from the User model
   type User {
-    id: ID
+    _id: ID
     username: String
     email: String
     bookCount: Int

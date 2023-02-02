@@ -24,6 +24,8 @@ N/A
 
 ![Book Search Engine Screenshot](./client/src/assets/images/book-search-engine-screenshot.png)
 
+To get started, create an account. Then, click on 'Search For Books' and enter in the name of a book. After submitted your search, results that match your input will appear. If you want to keep track of one of the results, save it and revisit your saved choices under 'See Your Books'!
+
 ## License
 [MIT](https://opensource.org/licenses/MIT)
 
